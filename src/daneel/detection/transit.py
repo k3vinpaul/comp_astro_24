@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 import pandas as pd
 #Read the data from the txt file and create a pandas dataframe to calculate the main of the parameters c1 and c2 of the transit model
 # Read the file
-file_path = 'ExoCTK_results.txt'
+file_path = 'ExoCTK_results.csv'
 df = pd.read_csv(file_path, delim_whitespace=True, skiprows=2)
 
 # Convert columns c1 and c2 to numeric, ignoring 'nan' values
