@@ -2,6 +2,7 @@ import batman
 import numpy as np
 import matplotlib.pyplot as plt
 import pandas as pd
+
 #Read the data from the txt file and create a pandas dataframe to calculate the main of the parameters c1 and c2 of the transit model
 # Read the file
 df = pd.read_csv('ExoCTK_results.csv', delim_whitespace=True)
@@ -39,7 +40,6 @@ params.limb_dark = "quadratic"       #limb darkening model
 t = np.linspace(-0.3 , 0.3 , 100)
 
 #Initialize the transit model and calculate the model light curve
-
 m = batman.TransitModel(params, t)    #initializes model
 flux = m.light_curve(params)          #calculates light curve
 
