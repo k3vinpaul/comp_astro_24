@@ -33,6 +33,14 @@ def main():
         help="Atmospheric Characterisazion from input transmission spectrum",
         action="store_true",
     )
+    
+    parser.add_argument(
+        '-t',
+        '--transit',
+        dest='transit',
+        required=False,
+        action='store_true',
+        help='Plot the transit light curve')
 
     args = parser.parse_args()
 
@@ -46,7 +54,8 @@ def main():
         pass
     if args.atmosphere:
         pass
-
+    if args.transit:
+        pass
     finish = datetime.datetime.now()
     print(f"Daneel finishes at {finish}")
 
