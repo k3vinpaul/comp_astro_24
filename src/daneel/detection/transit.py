@@ -2,6 +2,7 @@ import batman
 import numpy as np
 import matplotlib.pyplot as plt
 import pandas as pd
+import yaml
 
 #Read the data from the txt file and create a pandas dataframe to calculate the main of the parameters c1 and c2 of the transit model
 # Read the file
@@ -51,3 +52,24 @@ plt.ylabel("Relative flux")
 plt.title("TOI-2145b Light Curve")  # Add title
 plt.grid(True)  # Add grid
 plt.show()
+
+def transit(params_file):
+    with open(params_file, 'r') as file:
+        params = yaml.safe_load(file)
+    
+    # Example parameters, replace with actual parameters from the YAML file
+    time = np.linspace(0, 10, 100)
+    depth = params.get('depth', 0.01)
+    duration = params.get('duration', 0.1)
+    
+    # Simulate a simple transit light curve
+    light_curve = np.ones_like(time)
+    mid_transit = len(time) // 2
+    transit_indices = (time > (time[mid_transit] - duration / 2)) & (time < (time[mid_transit] + duration / 2))
+    light_curve[transit_indices] -= depth
+    
+    plt.plot(time, light_curve)
+    plt.xlabel('Time')
+    plt.ylabel('Normalized Flux')
+    plt.title('Transit Light Curve')
+    plt.show()
