@@ -35,12 +35,13 @@ def main():
     )
     
     parser.add_argument(
-        '-t',
-        '--transit',
-        dest='transit',
+        "-t",
+        "--transit",
+        dest="transit",
         required=False,
-        action='store_true',
-        help='Plot the transit light curve')
+        action="store_true",
+        help="Plot the transit light curve"
+    )
 
     args = parser.parse_args()
 
