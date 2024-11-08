@@ -59,8 +59,17 @@ def transit(params_file):
     
     # Example parameters, replace with actual parameters from the YAML file
     time = np.linspace(0, 10, 100)
-    depth = params.get('depth', 0.01)
-    duration = params.get('duration', 0.1)
+    params.get()
+    params = batman.TransitParams()
+    params.t0 = params.get("t0")                       #time of inferior conjunction
+    params.per = params.get("per")                #orbital period
+    params.rp = radius_ratio                   #planet radius (in units of stellar radii)
+    params.a = params.get("a")                    #semi-major axis (in units of stellar radii)
+    params.inc = params.get("inc")                    #orbital inclination (in degrees)
+    params.ecc = params.get("ecc")                    #eccentricity
+    params.w = params.get("w")                      #longitude of periastron (in degrees)
+    params.u = params.get("u")                #limb darkening coefficients [u1, u2]
+    params.limb_dark = "quadratic"       #limb darkening model
     
     # Simulate a simple transit light curve
     light_curve = np.ones_like(time)
