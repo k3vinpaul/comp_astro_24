@@ -44,7 +44,10 @@ m = batman.TransitModel(params, t)    #initializes model
 flux = m.light_curve(params)          #calculates light curve
 
 #Show the light curves
-plt.plot(t, flux)
+plt.plot(t, flux, color='blue')  # Plot the model
+plt.legend("TOI-2145b")  
 plt.xlabel("Time from central transit")
 plt.ylabel("Relative flux")
+plt.title("TOI-2145b Light Curve")  # Add title
+plt.grid(True)  # Add grid
 plt.show()
