@@ -1,4 +1,4 @@
- Teff  logg FeH   profile        filter     wave_min wave_eff wave_max   c1    e1    c2    e2    c3     e3    c4    e4 
+Teff  logg FeH   profile        filter     wave_min wave_eff wave_max   c1    e1    c2    e2    c3     e3    c4    e4 
 ------ ---- --- ----------- --------------- -------- -------- -------- ----- ----- ----- ----- ------ ----- ----- -----
 6250.0  4.0 0.5   quadratic Kepler/Kepler.K    0.422   0.4294    0.437 0.625 0.004 0.167 0.005    nan   nan   nan   nan
 6250.0  4.0 0.5   quadratic Kepler/Kepler.K    0.438   0.4456    0.453 0.625 0.006 0.173 0.008    nan   nan   nan   nan
