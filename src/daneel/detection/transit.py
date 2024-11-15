@@ -53,6 +53,10 @@ plt.title("TOI-2145b Light Curve")  # Add title
 plt.grid(True)  # Add grid
 plt.show()
 
+
+
+# PART OF THE CHALLENGE OF THE ASSIGNMENT 1 
+
 def transit(params_file):
     with open(params_file, 'r') as file:
         params = yaml.safe_load(file)
