@@ -76,10 +76,7 @@ def transit(params_file):
     params.limb_dark = "quadratic"       #limb darkening model
     
     # Simulate a simple transit light curve
-    light_curve = np.ones_like(time)
-    mid_transit = len(time) // 2
-    transit_indices = (time > (time[mid_transit] - duration / 2)) & (time < (time[mid_transit] + duration / 2))
-    light_curve[transit_indices] -= depth
+
     
     plt.plot(time, light_curve)
     plt.xlabel('Time')
