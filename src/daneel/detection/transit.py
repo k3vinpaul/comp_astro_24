@@ -4,9 +4,10 @@ import matplotlib.pyplot as plt
 import pandas as pd
 import yaml
 
+
 #Read the data from the txt file and create a pandas dataframe to calculate the main of the parameters c1 and c2 of the transit model
 # Read the file
-df = pd.read_csv('ExoCTK_results.csv', delim_whitespace=True)
+df = pd.read_csv('ExoCTK_results2.csv', delim_whitespace=True)
 
 # Convert columns c1 and c2 to numeric, ignoring 'nan' values
 df['c1'] = pd.to_numeric(df['c1'], errors='coerce')
@@ -19,26 +20,43 @@ c2_avg = df['c2'].mean()
 print(f'Average of c1: {c1_avg}')
 print(f'Average of c2: {c2_avg}')
 
-#Convert the units of the raduis and the other parameters to the units required by the transit model by batman package
-r_planet = 1.108     #Convert the radius of the planet from Jupiter
-r_star_ = 2.75        #Convert the radius of the star from Solar radii Jupiter radii
-radius_ratio = r_planet/r_star_  #Calculate the radius ratio between the planet and the star, this is the parameter rp in the transit model
-print(f'Radius ratio: {radius_ratio}')
+#Convert the stellar radius of the star in jupiter radius
+def stellar_radius(radius_star):
+    radius_star_jupiter = radius_star * 0.1027 #Convert the stellar radius to jupiter radius
+    return radius_star_jupiter          #Return the stellar radius in jupiter radius
+
+
+#Define the parameters as in the webpages of the Exoplanet catalog
+radius_planet = 0.74 #Radius of the planet in jupiter radius
+stellar_rad = 1.497 #Radius of the star in solar radius
+
+#Convert the radius of the planet in units of stellar radii
+def planet_radius(radius_planet):
+    radius = radius_planet * 0.1027 #Convert the planet radius to stellar radii
+    return radius          #Return the planet radius in stellar radii
+
+#Convert the Astronomical Unit to the stellar radius
+def AU_to_stellar_radius(AU):
+    stellar_radius = AU * 214.9394693836 #Convert the AU to the stellar radius
+    return stellar_radius          #Return the stellar radius in stellar radius
+
+#Define the semi-major axis of the planet in units of stellar radii
+semi_major_axis = AU_to_stellar_radius(0.041) #Semi-major axis of the planet in units of stellar radii
 
 #Define the parameters of the transit model using the planet TOI-2145b selected from the Exoplanet catalog
 params = batman.TransitParams()
 params.t0 = 0.                       #time of inferior conjunction
-params.per = 10.26                #orbital period
-params.rp = radius_ratio                    #planet radius (in units of stellar radii)
-params.a = 8.68                     #semi-major axis (in units of stellar radii)
-params.inc = 88.1                    #orbital inclination (in degrees)
-params.ecc = 0.21                    #eccentricity
-params.w = 96.37                       #longitude of periastron (in degrees)
-params.u = [int(c1_avg), int(c2_avg)]                #limb darkening coefficients [u1, u2]
+params.per = 2.8758916                #orbital period in days
+params.rp = planet_radius(radius_planet)                    #planet radius (in units of stellar radii)
+params.a = semi_major_axis                 #semi-major axis (in units of stellar radii)
+params.inc = 84.1                    #orbital inclination (in degrees)
+params.ecc = 0.013                    #eccentricity
+params.w = 109.0                       #longitude of periastron (in degrees)
+params.u = [c1_avg, c2_avg]                #limb darkening coefficients [u1, u2]
 params.limb_dark = "quadratic"       #limb darkening model
 
 #Time array to calculate the transit model
-t = np.linspace(-0.3 , 0.3 , 100)
+t = np.linspace(-0.05 , 0.05 , 1000)
 
 #Initialize the transit model and calculate the model light curve
 m = batman.TransitModel(params, t)    #initializes model
@@ -46,10 +64,10 @@ flux = m.light_curve(params)          #calculates light curve
 
 #Show the light curves
 plt.plot(t, flux, color='blue')  # Plot the model
-plt.legend("TOI-2145b")  
+plt.legend("HD 149026 b")  # Add legend
 plt.xlabel("Time from central transit [days] ")
 plt.ylabel("Relative flux")
-plt.title("TOI-2145b Light Curve")  # Add title
+plt.title("HD 149026 b Light Curve")  # Add title
 plt.grid(True)  # Add grid
 plt.show()
 
